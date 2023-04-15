@@ -1,0 +1,8 @@
+version: '3.8'
+services:
+  app:
+    build:
+      args:
+        DEBUG: true
+    ports:
+      - "5678:5678"

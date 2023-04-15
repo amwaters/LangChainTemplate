@@ -1,0 +1,8 @@
+{
+    "python.autoComplete.extraPaths": [
+        "Source/packages",
+    ],
+    "python.analysis.extraPaths": [
+        "Source/packages"
+    ]
+}
