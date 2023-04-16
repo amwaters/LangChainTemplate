@@ -1,5 +1,9 @@
 # LangChainTemplate
 
+<img src="https://github.com/amwaters/LangChainTemplate/blob/5394848d6f0bbb3a7824eb9aebc41ec6c7ac81b3/LangChainTemplate.jpg?raw=true"
+  style="width: 24em;"
+/>
+
 A template for LangChain apps!
 
 
