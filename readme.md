@@ -11,6 +11,7 @@ A template for LangChain apps!
 
 + Docker containment
 + Debugging in Visual Studio Code
++ NVIDIA driver support
 
 
 ## Quick Start
@@ -22,6 +23,9 @@ A template for LangChain apps!
     + [Visual Studio Code](https://code.visualstudio.com/download)
     + The [Python extension](https://marketplace.visualstudio.com/items?itemName=ms-python.python)
       for Visual Studio Code
+    + For NVIDIA driver support, set up the
+      [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#docker)
+      for Docker.
 <p/>
 
 2. Clone this repo:
@@ -66,7 +70,8 @@ A template for LangChain apps!
 
 ## Planned Features
 
-+ GPU support
++ GPU demo
++ Organise feature selection (I'd like lots of features but not spaghetti!)
 + Offline model installer
 + Testing framework
 + Update guide

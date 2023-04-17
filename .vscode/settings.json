@@ -1,4 +1,8 @@
 {
+    // Configure your compose mixins here.
+    "langchaintemplate.debug": "--file ./docker-compose-debug.yaml",
+    "langchaintemplate.gpu": "--file ./docker-compose-nvidia.yaml",
+
     "python.autoComplete.extraPaths": [
         "Source/packages",
     ],

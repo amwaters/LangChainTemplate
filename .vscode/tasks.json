@@ -4,12 +4,9 @@
         {
             "label": "docker-compose-up",
             "type": "shell",
-            "command": "docker compose --file ./docker-compose.yaml --file ./docker-compose-debug.yaml up --build --detach",
+            "command": "docker compose --file ./docker-compose.yaml ${config:langchaintemplate.debug} ${config:langchaintemplate.gpu} up --build --detach",
             "options": {
-                "cwd": "${workspaceFolder}",
-                "env": {
-                    "DEBUG": "true"
-                }
+                "cwd": "${workspaceFolder}"
             },
             "presentation": {
                 "echo": true,
