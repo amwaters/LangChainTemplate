@@ -1,0 +1,8 @@
+version: '3.8'
+services:
+  app:
+    build:
+      args:
+        MOUNT_SOURCE: true
+    volumes:
+      - ./Source:/app:ro

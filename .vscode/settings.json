@@ -1,12 +1,30 @@
 {
+    ////////////////////////////////////////////////////////////////////////////
     // Configure your compose mixins here.
+    // Comment out the ones you don't need.
+
+    // Adds python debug
     "langchaintemplate.debug": "--file ./docker-compose-debug.yaml",
+
+    // Adds GPU support
     "langchaintemplate.gpu": "--file ./docker-compose-nvidia.yaml",
 
+    // Adds streamlit support
+    "langchaintemplate.streamlit": "--file ./docker-compose-streamlit.yaml",
+    
+    // Mounts source code rather than copying it (e.g. live development)
+    "langchaintemplate.mount": "--file ./docker-compose-mount.yaml",
+    
+    ////////////////////////////////////////////////////////////////////////////
+    
     "python.autoComplete.extraPaths": [
         "Source/packages",
     ],
     "python.analysis.extraPaths": [
         "Source/packages"
+    ],
+
+    "cSpell.words": [
+        "streamlit"
     ]
 }

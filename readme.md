@@ -12,6 +12,7 @@ A template for LangChain apps!
 + Docker containment
 + Debugging in Visual Studio Code
 + NVIDIA driver support
++ [Streamlit](https://streamlit.io/) UI support
 
 
 ## Quick Start
@@ -46,9 +47,11 @@ A template for LangChain apps!
    OPENAI_API_KEY=my-openai-key
    ```
 
-5. Hit F5 to say hello to an AI!
+5. Configure options in `.vscode/settings.json`
 
-6. Start developing your app in the `Source` folder.
+6. Hit F5 to say hello to an AI!
+
+7. Start developing your app in the `Source` folder.
 
 
 ## Directory
@@ -70,9 +73,9 @@ A template for LangChain apps!
 
 ## Planned Features
 
++ UI authentication (https://github.com/mkhorasani/Streamlit-Authenticator)
 + GPU demo
 + Organise feature selection (I'd like lots of features but not spaghetti!)
 + Offline model installer
 + Testing framework
 + Update guide
-+ UI support (maybe [langflow](https://github.com/logspace-ai/langflow))

@@ -4,14 +4,24 @@
         {
             "label": "docker-compose-up",
             "type": "shell",
-            "command": "docker compose --file ./docker-compose.yaml ${config:langchaintemplate.debug} ${config:langchaintemplate.gpu} up --build --detach",
+            "command": [
+                "docker compose",
+                "--file ./docker-compose.yaml",
+                "${config:langchaintemplate.debug}",
+                "${config:langchaintemplate.gpu}",
+                "${config:langchaintemplate.streamlit}",
+                "${config:langchaintemplate.mount}",
+                "up",
+                "--build",
+                "--detach"
+            ],
             "options": {
                 "cwd": "${workspaceFolder}"
             },
             "presentation": {
                 "echo": true,
-                "reveal": "silent",
-                "focus": false,
+                "reveal": "always",
+                "focus": true,
                 "panel": "shared",
                 "showReuseMessage": false,
                 "clear": true

@@ -1,5 +1,12 @@
+import os
 from langchain.chat_models import ChatOpenAI
 from langchain.prompts.chat import HumanMessage
+
+_callback = print
+
+if os.environ.get('STREAMLIT', None) is not None:
+    import streamlit as st
+    _callback = st.write
 
 def say_hello():
     """
@@ -12,6 +19,6 @@ def say_hello():
     })
 
     request = "Hello, friend! How are you?"
-    print(f"Operator: {request}")
+    _callback(f"Operator: {request}")
     response = llm([HumanMessage(content=request)])
-    print(f"Consultant: {response.content}")
+    _callback(f"Consultant: {response.content}")
