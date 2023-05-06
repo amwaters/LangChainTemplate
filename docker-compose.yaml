@@ -4,5 +4,5 @@ services:
     build: .
     env_file: ./.env
     volumes:
-      - ./Data/Static/Models:/data:ro
-      - ./Data/Persistent/Home:/home/user
+      - ./Data/Models:/data/models:ro
+      - ./Data/Home:/home/user

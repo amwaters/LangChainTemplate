@@ -16,6 +16,7 @@ RUN useradd --create-home --shell /bin/bash user
 ENV PYTHON_ARGS=""
 ENV PYTHON_ENTRYPOINT=/app/main.py
 
+
 ################################################################################
 ## Dependency installation
 

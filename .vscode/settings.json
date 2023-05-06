@@ -4,16 +4,16 @@
     // Comment out the ones you don't need.
 
     // Adds python debug
-    "langchaintemplate.debug": "--file ./docker-compose-debug.yaml",
+    "langchaintemplate.debug": "--file ./Compose/docker-compose-debug.yaml",
 
     // Adds GPU support
-    "langchaintemplate.gpu": "--file ./docker-compose-nvidia.yaml",
+    "langchaintemplate.gpu": "--file ./Compose/docker-compose-nvidia.yaml",
 
     // Adds streamlit support
-    "langchaintemplate.streamlit": "--file ./docker-compose-streamlit.yaml",
+    "langchaintemplate.streamlit": "--file ./Compose/docker-compose-streamlit.yaml",
     
     // Mounts source code rather than copying it (e.g. live development)
-    "langchaintemplate.mount": "--file ./docker-compose-mount.yaml",
+    "langchaintemplate.mount": "--file ./Compose/docker-compose-mount.yaml",
     
     ////////////////////////////////////////////////////////////////////////////
     

@@ -27,7 +27,7 @@ A template for LangChain apps!
     + For NVIDIA driver support, set up the
       [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#docker)
       for Docker.
-<p/>
+<p>
 
 2. Clone this repo:
 
@@ -56,26 +56,28 @@ A template for LangChain apps!
 
 ## Directory
 
-+ `.vscode` &ndash; configuration for VS Code,
-  including launchers, debuggers, and intellisense
-+ `Data` &ndash; several folders which will be mounted in the container
-  for I/O
-    + `Persistent/Home` &ndash; the container's home directory
-      (mounted as read/write)
-    + `Static/Models` &ndash; a place to put big files
-      (mounted as read-only)
++ `.vscode` &ndash; configuration for VS Code
+    + `settings.json` &ndash; Includes **LangChainTemplate feature settings**
++ `Data/Home` &ndash; the container's home directory
+  (mounted to `/home/user` as read/write)
++ `Data/Models` &ndash; a place to put big files
+  (mounted to `/data/models` as read-only)
 + `Source`
-    + `packages` &ndash; a place to organise packages for your app
+    + `packages` &ndash; a place to organise custom packages for your app
     + `main.py` &ndash; your app's main entrypoint
     + `requirements.txt` &ndash; a PIP requirements file
-      for your app's dependencies.
+      for your app's package dependencies
+    + `Home.py` &ndash; the home page for streamlit apps
+    + `pages/*.py` &ndash; additional pages for streamlit apps
 
 
 ## Planned Features
 
-+ UI authentication (https://github.com/mkhorasani/Streamlit-Authenticator)
-+ GPU demo
-+ Organise feature selection (I'd like lots of features but not spaghetti!)
++ Streamlit CSS template
 + Offline model installer
++ GPU demo
++ HTTPS
 + Testing framework
++ UI authentication (e.g. [Streamlit-Authenticator](https://github.com/mkhorasani/Streamlit-Authenticator))
 + Update guide
++ Improve feature selection (more features and less spaghetti!)
