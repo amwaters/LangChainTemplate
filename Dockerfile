@@ -1,7 +1,9 @@
-# Sets debug support for the container (via docker-compose-debug.yaml)
+################################################################################
+## ARG DEBUG: sets debug mode ('true' or 'false', default 'false')
+##   Enable for remote debugging using VS Code,
+##   as well as live-reloading via mounted source.
+
 ARG DEBUG=false
-ARG STREAMLIT=false
-ARG MOUNT=false
 
 
 ################################################################################
@@ -36,6 +38,13 @@ ENV PYTHONPATH "${PYTHONPATH}:/app/packages"
 ## Extension providing debug support
 
 FROM base-0 AS debug-false
+
+# Copy the source code (unless in debug moden when it's mounted for live reload)
+WORKDIR /app
+COPY Source/* .
+RUN chmod a-w .
+
+
 FROM base-0 AS debug-true
 
 ENV DEBUG=true
@@ -50,16 +59,12 @@ RUN pip install --upgrade debugpy
 
 EXPOSE 5678
 
+
 FROM debug-$DEBUG AS base-1
 
 
 ################################################################################
-## Extension providing streamlit support
-
-FROM base-1 AS streamlit-false
-FROM base-1 AS streamlit-true
-
-RUN pip install --upgrade streamlit
+## Add streamlit support
 
 ENV STREAMLIT=true
 ENV STREAMLIT_BROWSER_GATHER_USAGE_STATS=false
@@ -71,26 +76,11 @@ ENV PYTHON_ENTRYPOINT="/app/Home.py"
 
 EXPOSE 8501
 
-FROM streamlit-$STREAMLIT AS base-2
-
-
-################################################################################
-## Extension providing mounted source for live development
-
-FROM base-2 AS mount-true
-FROM base-2 AS mount-false
-
-WORKDIR /app
-COPY Source/* .
-RUN chmod a-w .
-
-FROM mount-$MOUNT AS base-3
-
 
 ################################################################################
 ## Main application
 
-FROM base-3
+FROM base-1
 USER user
 WORKDIR /home/user
 ENV PYTHON_ARGS="$PYTHON_ARGS $PYTHON_ENTRYPOINT"

@@ -4,5 +4,10 @@ services:
     build:
       args:
         DEBUG: true
+    environment:
+      STREAMLIT_CLIENT_TOOLBAR_MODE: developer
+      STREAMLIT_SERVER_RUN_ON_SAVE: 'true'
+    volumes:
+      - ./Source:/app:ro
     ports:
       - "5678:5678"

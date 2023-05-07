@@ -9,12 +9,6 @@
     // Adds GPU support
     "langchaintemplate.gpu": "--file ./Compose/docker-compose-nvidia.yaml",
 
-    // Adds streamlit support
-    "langchaintemplate.streamlit": "--file ./Compose/docker-compose-streamlit.yaml",
-    
-    // Mounts source code rather than copying it (e.g. live development)
-    "langchaintemplate.mount": "--file ./Compose/docker-compose-mount.yaml",
-    
     ////////////////////////////////////////////////////////////////////////////
     
     "python.autoComplete.extraPaths": [

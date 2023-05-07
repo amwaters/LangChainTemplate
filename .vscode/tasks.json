@@ -9,8 +9,6 @@
                 "--file ./docker-compose.yaml",
                 "${config:langchaintemplate.debug}",
                 "${config:langchaintemplate.gpu}",
-                "${config:langchaintemplate.streamlit}",
-                "${config:langchaintemplate.mount}",
                 "up",
                 "--build",
                 "--detach"

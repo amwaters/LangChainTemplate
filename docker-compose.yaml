@@ -3,6 +3,11 @@ services:
   app:
     build: .
     env_file: ./.env
+    environment:
+      STREAMLIT_THEME_BASE: dark
+      STREAMLIT_SERVER_ENABLE_STATIC_SERVING: true
     volumes:
       - ./Data/Models:/data/models:ro
       - ./Data/Home:/home/user
+    ports:
+      - "8501:8501"
