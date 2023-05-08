@@ -12,12 +12,12 @@ def validate_css_class(name : str):
     return name
 
 
-def html_unsafe(content : str):
+def html_unsafe(content : str = None):
     """
     Renders HTML content.
     This is unsafe, and should only be used with trusted content.
     """
-    st.markdown(content, unsafe_allow_html=True)
+    st.write(content, unsafe_allow_html=True)
 
 
 def marked_container(marker_name : str = None):
@@ -26,9 +26,11 @@ def marked_container(marker_name : str = None):
     This is useful for styling.
     CSS usage: `:has(.marker_name) { ... }`
     """
+    for i in marker_name.split():
+        validate_css_class(i)
     c = st.container()
     with c:
-        html_unsafe(f'<div class="{marker_name}"></div>')
+        html_unsafe(f'<div class="stu-marker {marker_name}"></div>')
     return c
 
 

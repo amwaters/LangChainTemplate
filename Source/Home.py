@@ -1,5 +1,7 @@
 import streamlit as st
-from streamlit_utils.chatbox import ChatBox, ChatPoster
+from streamlit_utils.chatbox import ChatBox
+from streamlit_utils.chatbox import viewer_avatar as user
+from streamlit_utils.chatbox import generic_bot_avatar as bot
 from streamlit_utils.css import load_style
 
 load_style()
@@ -19,21 +21,11 @@ st.selectbox(
 
 chatbox = ChatBox()
 
-user = ChatPoster("User", [
-    "/app/static/icons/src-userland.png",
-    "/app/static/icons/chat-user.png"
-], is_user=True)
+with chatbox.post(user):
+    st.markdown("Hello, world!")
 
-bot = ChatPoster("Dispatcher", [
-    "/app/static/icons/src-generic.png",
-    "/app/static/icons/chat-commander.png"
-])
-
-chatbox.post(user, "Hello, world!")
-chatbox.post(bot, "Greetings!")
-
-# TODO: have chatbox.post return a container that we can fill with our content
-# TODO: hook into llm to get thoughts
+with chatbox.post(bot):
+    st.markdown("Greetings!")
 
 form = st.form(
     key="chat_form",
@@ -44,14 +36,9 @@ with form:
     input = st.text_area(label="Chat", height=100, max_chars=500, key="chat")
     submitted = st.form_submit_button("Submit")
 
-if not submitted: exit()
-
-#st.image("//app/static/icons/user.png", width=50, caption="User")
-
-with chatbox:
-
-    st.text(input)
-
-    #st.image("//app/static/icons/bot.png", width=50, caption="Bot")
-
-    st.text(f"I received: {input}")
+if submitted:
+    with chatbox.post(user):
+        st.markdown(input)
+    with chatbox.post(bot):
+        st.markdown("I received: {input}")
+    exit()

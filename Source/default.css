@@ -2,43 +2,53 @@
     --border-colour: rgba(250, 250, 250, 0.2)
 }
 
-.chat-post {
+:has(>*>*>.stu-marker) {
+    display: none;
+}
+
+:has(>*>*>*>.stu-row) {
+    flex-direction: row;
+    justify-content: stretch;
+}
+
+:has(>*>*>*>.chat-message) {
     position: relative;
     padding: calc(1em - 1px);
     border-radius: 0 1em 1em 1em;
     border: 1px solid var(--border-colour);
-    width: calc(100% - 3em);
-
-    display: flex;
-    flex-direction: row;
-    justify-content: stretch;
-    margin: 1em;
     gap: 1em;
 }
-.chat-post.is-user {
+
+:has(>*>*>*>.chat-message.viewer) {
     margin-right: 1em;
     margin-left: auto;
     border-radius: 1em 0 1em 1em;
 }
 
-.chat-post > .avatar {
+:has(>*>*>.avatar) {
     position: relative;
     width: 3em;
     height: 3em;
     border-radius: 0.5em;
     overflow: hidden;
 }
-.chat-post > .avatar > img {
+
+.avatar {
+    width: 3em;
+    height: 3em;
+}
+
+.avatar > img {
     position: absolute;
     width: 100%;
     height: 100%;
     object-fit: contain;
 }
 
-.chat-post > .message {
-    flex-grow: 1;
-}
-
-.chat-post > .message > .username {
+:has(>*>*>*>.chat-box) .username-title {
     opacity: 50%
+}
+:has(>*>*>*>.chat-box) .username-title:before {
+    content: '@';
+    opacity: 75%
 }
