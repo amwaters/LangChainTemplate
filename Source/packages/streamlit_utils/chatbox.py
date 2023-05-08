@@ -1,5 +1,5 @@
 from collections import namedtuple
-import html, urllib.parse
+import html, json, os, urllib.parse
 from typing import Iterable, Optional, Tuple
 import streamlit as st
 from streamlit.delta_generator import DeltaGenerator
@@ -7,23 +7,54 @@ from streamlit.delta_generator import DeltaGenerator
 from .html import html_unsafe, marked_container
 
 
-ChatAvatar : Tuple[str, Iterable[str], bool] = \
-    namedtuple('ChatUser', ['name', 'images', 'is_viewer'])
+def ChatAvatar(name: str, images: Iterable[str], is_viewer: bool):
+    return {
+        'name': name,
+        'images': images,
+        'is_viewer': is_viewer
+    }
 
+def ChatMessage(sender: str, content: str):
+    return {
+        'sender': sender,
+        'content': content
+    }
 
 class ChatBox():
 
-    def __init__(self, file:Optional[str] = None):
+    def __init__(self, file:str):
         self.file = file
+        if not os.path.exists(self.file):
+            with open(self.file, 'w') as f:
+                json.dump({
+                    'avatars': {},
+                    'messages': []
+                }, f)
+        
         self.container = marked_container('chat-box')
         with self.container:
             self.messages = marked_container('chat-messages')
-            self.input = marked_container('chat-input')
+            self.input = marked_container('chat-input')            
     
-    def post(self, sender : ChatAvatar) -> DeltaGenerator:
+        with open(self.file, 'r') as f:
+            data = json.load(f)
+        for message in data['messages']:
+            sender = data['avatars'].get(message['sender'])
+            content = message['content']
+            self._render_post(sender, content)
+    
+    def post(self, sender : ChatAvatar, content : str):
+        with open(self.file, 'r') as f:
+            data = json.load(f)
+        data['avatars'][sender['name']] = sender
+        data['messages'].append(ChatMessage(sender['name'], content))
+        with open(self.file, 'w') as f:
+            json.dump(data, f)
+
+    def _render_post(self, sender : ChatAvatar, content : str) -> DeltaGenerator:
         with self.container:
             post_container = marked_container(
-                'chat-message stu-row viewer' if sender.is_viewer else 'chat-message stu-row'
+                'chat-message stu-row viewer' if sender['is_viewer'] else 'chat-message stu-row'
             )
         with post_container:
             self._render_avatar(sender)
@@ -31,15 +62,15 @@ class ChatBox():
         with content_container:
             html_unsafe(f"""
                 <div class="username-title">
-                    {html.escape(sender.name)}
+                    {html.escape(sender['name'])}
                 </div>
             """)
-        return content_container
+            st.markdown(content)
     
     def _render_avatar(self, avatar : ChatAvatar):
         avatar_html = ''.join([
             f"""<img src="{urllib.parse.quote(i)}" />"""
-            for i in avatar.images
+            for i in avatar['images']
         ])
         html_unsafe(f'<div class="avatar">{avatar_html}</div>')
 

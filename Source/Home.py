@@ -19,13 +19,7 @@ st.selectbox(
     ]
 )
 
-chatbox = ChatBox()
-
-with chatbox.post(user):
-    st.markdown("Hello, world!")
-
-with chatbox.post(bot):
-    st.markdown("Greetings!")
+chatbox = ChatBox('/home/user/chat.json')
 
 form = st.form(
     key="chat_form",
@@ -37,8 +31,6 @@ with form:
     submitted = st.form_submit_button("Submit")
 
 if submitted:
-    with chatbox.post(user):
-        st.markdown(input)
-    with chatbox.post(bot):
-        st.markdown("I received: {input}")
-    exit()
+    chatbox.post(user, input)
+    chatbox.post(bot, f"I received: {input}")
+    st.experimental_rerun()
