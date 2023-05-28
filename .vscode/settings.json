@@ -20,7 +20,12 @@
 
     "cSpell.words": [
         "chatbox",
+        "langchain",
+        "llms",
+        "openai",
         "selectbox",
-        "streamlit"
+        "streamlit",
+        "Vectorstore",
+        "vectorstores"
     ]
 }

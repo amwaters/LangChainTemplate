@@ -23,14 +23,17 @@ ENV PYTHON_ENTRYPOINT=/app/main.py
 ## Dependency installation
 
 WORKDIR /tmp
-COPY ./Source/requirements.txt .
 
+COPY ./Source/packages.txt .
+RUN xargs apt-get install -y <packages.txt \
+&&  rm packages.txt
+
+COPY ./Source/requirements.txt .
 RUN pip install \
       --no-cache-dir \
       --upgrade \
       --requirement requirements.txt \
 &&  rm requirements.txt
-
 ENV PYTHONPATH "${PYTHONPATH}:/app/packages"
 
 

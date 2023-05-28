@@ -1,36 +1,54 @@
 import streamlit as st
-from streamlit_utils.chatbox import ChatBox
-from streamlit_utils.chatbox import viewer_avatar as user
-from streamlit_utils.chatbox import generic_bot_avatar as bot
-from streamlit_utils.css import load_style
+from utils.chatbox import ChatBox
+from utils.chatbox import viewer_avatar as user
+from utils.chatbox import generic_bot_avatar as bot
+from utils.css import load_style
 
 load_style()
 
-submitted = False
-
 # consider putting this in the sidebar as an 'add bot' or 'add tool'
 # or perhaps have this as the default 'Dispatcher'
-st.selectbox(
-    label = "Select a Dispatcher model:",
-    options = [
-        "OpenAI GPT-3-turbo",
-        "OpenAI GPT-4",
-        "LLaMa local \xA0 (\u2913 3.3 GB)",
-    ]
-)
 
-chatbox = ChatBox('/home/user/chat.json')
+from utils import llm_selectbox
+llm = llm_selectbox()
 
-form = st.form(
+@st.cache_resource
+def get_docs():
+    from utils import create_document_store
+    return create_document_store(
+        "SRD-OGL_V5.1.pdf",
+        #"quick.txt"
+    )
+docs = get_docs()
+
+chain = None
+if llm is not None:
+    from langchain.chains.qa_with_sources import load_qa_with_sources_chain
+    chain = load_qa_with_sources_chain(llm, chain_type="map_rerank")
+
+def query(input):
+    shortlist = docs.as_retriever().get_relevant_documents(input)
+    return chain(
+        {
+            'input_documents': shortlist,
+            'question': input
+        },
+        return_only_outputs=True
+    )['output_text']
+
+chatbox = ChatBox('chat.json')
+
+with st.form(
     key="chat_form",
     clear_on_submit=True
-)
-
-with form:
+):
     input = st.text_area(label="Chat", height=100, max_chars=500, key="chat")
     submitted = st.form_submit_button("Submit")
 
 if submitted:
     chatbox.post(user, input)
-    chatbox.post(bot, f"I received: {input}")
+    if (chain is not None):
+        chatbox.post(bot, query(input))
+    else:
+        chatbox.post(bot, "No LLM selected.")
     st.experimental_rerun()

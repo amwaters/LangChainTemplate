@@ -1,4 +1,8 @@
 langchain
+openai
+tiktoken
+pypdf
+chromadb
+
 streamlit
 watchdog
-openai
